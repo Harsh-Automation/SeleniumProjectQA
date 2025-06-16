@@ -13,8 +13,10 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
 
-	WebDriver driver;
+	public WebDriver driver;
 	String browser = "chrome";
+
+	String url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 
 	@BeforeClass
 	public void setup() {
@@ -22,6 +24,8 @@ public class BaseClass {
 
 			if (browser.equalsIgnoreCase("chrome")) {
 				ChromeOptions co = new ChromeOptions();
+				co.addArguments("--force-device-scale-factor=1.25");
+
 				WebDriverManager.chromedriver().setup();
 				driver = new ChromeDriver(co);
 			} else if (browser.equalsIgnoreCase("edge")) {
@@ -31,11 +35,14 @@ public class BaseClass {
 			}
 
 			driver.manage().window().maximize();
+			driver.manage().deleteAllCookies();
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 			driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
 
+			driver.get(url);
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
 
 	}
@@ -45,6 +52,7 @@ public class BaseClass {
 	public void tearDown() {
 		if (driver != null) {
 			driver.quit();
+			System.out.println("Browser is closed");
 		}
 	}
 }
