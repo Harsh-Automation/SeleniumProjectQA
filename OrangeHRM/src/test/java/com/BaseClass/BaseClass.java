@@ -9,11 +9,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.annotations.*;
 
+import com.Utilities.Utilities;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
 
-	public WebDriver driver;
+	public static WebDriver driver;
 	String browser = "chrome";
 
 	String url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
@@ -38,6 +40,8 @@ public class BaseClass {
 			driver.manage().deleteAllCookies();
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 			driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+			
+			
 
 			driver.get(url);
 
@@ -55,4 +59,11 @@ public class BaseClass {
 			System.out.println("Browser is closed");
 		}
 	}
+	
+	@BeforeSuite
+	public void deleteDirectory()
+	{
+		Utilities.delete_directory();
+	}
+	
 }
