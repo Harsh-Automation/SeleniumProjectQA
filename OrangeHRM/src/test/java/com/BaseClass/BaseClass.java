@@ -20,7 +20,7 @@ public class BaseClass {
 
 	String url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 
-	@BeforeClass
+	@BeforeMethod
 	public void setup() {
 		try {
 
@@ -51,7 +51,7 @@ public class BaseClass {
 
 	}
 
-	@AfterClass
+	@AfterMethod
 
 	public void tearDown() {
 		if (driver != null) {

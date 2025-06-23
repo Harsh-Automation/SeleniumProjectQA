@@ -2,12 +2,11 @@ package com.Utilities;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
@@ -21,6 +20,8 @@ public class Utilities extends BaseClass {
 
 	public static WebDriverWait wait;
 
+	public static JavascriptExecutor js;
+
 	public static void takeScreenshot(String scrName) throws IOException {
 		File dir = new File("Screenshots");
 
@@ -31,7 +32,7 @@ public class Utilities extends BaseClass {
 
 			TakesScreenshot js = (TakesScreenshot) driver;
 			File src = js.getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(src, new File(dir + "/" + scrName + "_" + timestamp() + ".png"));
+			FileUtils.copyFile(src, new File(dir + "/" + scrName + "_" + DataUtil.timestamp() + ".png"));
 
 		} catch (WebDriverException e) {
 			System.out.println(e.getMessage());
@@ -39,12 +40,6 @@ public class Utilities extends BaseClass {
 			System.out.println(e.getMessage());
 		}
 
-	}
-
-	public static String timestamp() {
-
-		String smf = new SimpleDateFormat("yyyy_mm_dd_hh_mm_ss").format(new Date());
-		return smf;
 	}
 
 	public static void delete_directory() {
@@ -107,6 +102,21 @@ public class Utilities extends BaseClass {
 		} catch (Exception e) {
 			System.out.println("Assertion Error : " + e.getMessage());
 		}
+	}
+
+	public static void clearInputField(WebElement elementLocator) {
+
+		try {
+
+			js = (JavascriptExecutor) driver;
+
+			js.executeScript("arguments[0].value='';arguments[0].dispatchEvent(new Event('input', { bubbles: true }));",
+					elementLocator);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
+
 }

@@ -21,28 +21,39 @@ public class DashboardTest extends BaseClass {
 	SoftAssert sa = new SoftAssert();
 
 	@Test
-	public void dashboardPageTest() throws InterruptedException, IOException
-	{
-		lp= new LoginPage(driver);
+	public void dashboardPageTest() throws InterruptedException, IOException {
+		lp = new LoginPage(driver);
 		lp.enter_username_password("Admin", "admin123");
 		Thread.sleep(1000);
 		lp.click_on_login();
 		Utilities.takeScreenshot("Dashboard_Page");
 		lp.dashboardIsDisplayed();
-		
+
 		dp = new DashboardPage(driver);
-		
-		sa.assertEquals(dp.verifyDashboardHeaderLabel(),"Dashboard");
+
+		sa.assertEquals(dp.verifyDashboardHeaderLabel(), "Dashboard");
 		dp.verifyOHRMLogiIsDisplayed();
 		dp.verifyProfileSectionIsDisplayed();
-		
-		List<String> itemList = new ArrayList<String>(Arrays.asList("Admin","PIM","Leave","Time","Recruitment","My Info","Performance","Dashboard","Directory","Maintenance","Claim","Buzz"));
+
+		List<String> itemList = new ArrayList<String>(Arrays.asList("Admin", "PIM", "Leave", "Time", "Recruitment",
+				"My Info", "Performance", "Dashboard", "Directory", "Maintenance", "Claim", "Buzz"));
 		Utilities.assertMainMenuOptions(dp.verifyMainMenuItems(), itemList);
-		
-		sa.assertAll();
+
+		dp.clickOnProfileIconDD();
+		List<String> dropdownitemList = new ArrayList<String>(
+				Arrays.asList("About", "Support", "Change Password", "Logout"));
+		Utilities.assertMainMenuOptions(dp.verifyProfileSectionItems(), dropdownitemList);
+		Utilities.takeScreenshot("Profile_section_items");
+
 		Thread.sleep(1000);
-				
-		
+
+		dp.cLickOnLogoutBtn();
+
+		sa.assertTrue(lp.lblLoginIsDisplayed());
+		Utilities.takeScreenshot("Loginpage_after_Logout");
+
+		sa.assertAll();
+
 	}
-	
+
 }

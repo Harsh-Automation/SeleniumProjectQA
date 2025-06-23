@@ -16,6 +16,11 @@ public class DashboardPage {
 
 	By main_menu_item_list = By.xpath("//*[@class='oxd-sidepanel-body']/ul/li/a/span");
 
+	By dropdown_profile_section = By.cssSelector(".oxd-icon.bi-caret-down-fill.oxd-userdropdown-icon");
+	By dropdown_options_profile_section = By.xpath("//ul[@class='oxd-dropdown-menu']/li");
+
+	By btn_logout = By.linkText("Logout");
+
 	public DashboardPage(WebDriver driver) {
 		this.driver = driver;
 	}
@@ -42,6 +47,19 @@ public class DashboardPage {
 	}
 
 	public List<WebElement> verifyMainMenuItems() {
-		return driver.findElements(main_menu_item_list);		
+		return driver.findElements(main_menu_item_list);
 	}
+
+	public void clickOnProfileIconDD() {
+		driver.findElement(dropdown_profile_section).click();
+	}
+
+	public List<WebElement> verifyProfileSectionItems() {
+		return driver.findElements(dropdown_options_profile_section);
+	}
+
+	public void cLickOnLogoutBtn() {
+		driver.findElement(btn_logout).click();
+	}
+
 }
