@@ -22,6 +22,7 @@ public class Utilities extends BaseClass {
 
 	public static JavascriptExecutor js;
 
+
 	public static void takeScreenshot(String scrName) throws IOException {
 		File dir = new File("Screenshots");
 

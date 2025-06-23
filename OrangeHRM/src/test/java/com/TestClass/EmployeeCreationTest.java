@@ -2,6 +2,7 @@ package com.TestClass;
 
 import java.lang.System.Logger;
 
+import org.apache.logging.log4j.LogManager;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -16,13 +17,14 @@ public class EmployeeCreationTest extends BaseClass {
 	LoginPage lp;
 	EmployeeCreationPage ec;
 	
-	Logger log = Logger.get
+	public static Logger log = (Logger) LogManager.getLogger(EmployeeCreationTest.class);
+
 
 	@Test(priority = 1)
 	public void employeeCreation() throws Exception {
 
 		SoftAssert sa = new SoftAssert();
-
+		
 		lp = new LoginPage(driver);
 		lp.enter_username_password("Admin", "admin123");
 		Thread.sleep(1000);
