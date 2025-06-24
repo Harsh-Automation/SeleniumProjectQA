@@ -1,11 +1,15 @@
 package com.PageClass;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.Utilities.Utilities;
 
 public class EmployeeCreationPage {
+
+	Logger log = LogManager.getLogger(this.getClass());
 
 	WebDriver driver;
 
@@ -37,66 +41,99 @@ public class EmployeeCreationPage {
 
 	public EmployeeCreationPage(WebDriver driver) {
 		this.driver = driver;
+		log.info(this.getClass().getSimpleName() + " object initialized.");
+
 	}
 
 	public void cLickOnPIMOption() {
+
+		log.info("Clicking on PIM menu option.");
+
 		driver.findElement(main_menu_option_PIM).click();
 	}
 
 	public String verifyPIMHeader() {
-		return driver.findElement(header_title).getText();
+
+		String header = driver.findElement(header_title).getText();
+		log.info("PIM header text: " + header);
+		return header;
 	}
 
 	public boolean addBtnIsDisplayed() {
+		log.info("Add button displayed: ");
+
 		return driver.findElement(btn_add).isDisplayed();
 	}
 
 	public String verifyAddEmployeeHeader() {
-		return driver.findElement(lbl_addEmployee).getText();
+		String header = driver.findElement(lbl_addEmployee).getText();
+		log.info("Add Employee header text: " + header);
+		return header;
 	}
 
 	public void clickOnAddBtn() {
+		log.info("Clicking on Add button.");
+
 		driver.findElement(btn_add).click();
 	}
 
 	public boolean footerIsDisplayed() {
+		log.info("Waiting for footer section to be visible.");
+
 		Utilities.waitForElement(driver.findElement(footer_addEmployee));
 		return driver.findElement(footer_addEmployee).isDisplayed();
 	}
 
 	public void setFirstName(String firstName) {
+        log.info("Entering first name: " + firstName);
+
 		driver.findElement(txt_firstName).clear();
 
 		driver.findElement(txt_firstName).sendKeys(firstName);
 	}
 
 	public void setMiddleName(String middleName) {
+        log.info("Entering middle name: " + middleName);
+
 		driver.findElement(txt_middleName).clear();
 
 		driver.findElement(txt_middleName).sendKeys(middleName);
 	}
 
 	public void setLastName(String lastName) {
+        log.info("Entering last name: " + lastName);
+
 		driver.findElement(txt_lastName).clear();
 
 		driver.findElement(txt_lastName).sendKeys(lastName);
 	}
 
 	public void setEmployeeId(int empId) {
+		
+        log.info("Setting employee ID: " + empId);
+
 		Utilities.clearInputField(driver.findElement(txt_empId));
 
 		driver.findElement(txt_empId).sendKeys(String.valueOf(empId));
 	}
 
 	public boolean saveBtnIsEnabled() {
+		
+        log.info("Save button enabled: " );
+
 		return driver.findElement(btn_save).isEnabled();
 	}
 
 	public void clickOnSaveBtn() {
+		
+        log.info("Clicking on Save button.");
+
 		driver.findElement(btn_save).click();
 	}
 
 	public String verifySuccessMsg() {
+
+        log.info("Waiting for success message.");
 
 		Utilities.waitForElement(driver.findElement(msg_success));
 
@@ -104,18 +141,29 @@ public class EmployeeCreationPage {
 	}
 
 	public void searchEmployeeName(String empName) {
+		
+        log.info("Searching employee name: " + empName);
+
 
 		driver.findElement(search_field_employeename).sendKeys(empName);
 
 		Utilities.waitForElement(driver.findElement(select_first_search_result));
 		driver.findElement(select_first_search_result).click();
+        log.info("Selected employee from search results.");
+
 	}
 
 	public boolean submitBtnIsEnabled() {
+		
+        log.info("Submit button enabled: ");
+
 		return driver.findElement(btn_submit).isEnabled();
 	}
 
 	public void clickOnSubmitBtn() {
+		
+        log.info("Clicking on Submit button.");
+
 		driver.findElement(btn_submit).click();
 	}
 }

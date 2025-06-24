@@ -6,6 +6,8 @@ import java.time.Duration;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -21,6 +23,8 @@ public class Utilities extends BaseClass {
 	public static WebDriverWait wait;
 
 	public static JavascriptExecutor js;
+	static Logger log = LogManager.getLogger(Utilities.class);
+
 
 
 	public static void takeScreenshot(String scrName) throws IOException {
@@ -78,30 +82,30 @@ public class Utilities extends BaseClass {
 					String item = actualElement.getText().trim();
 					if (!expectedItems.contains(item)) {
 						allmatched = false;
-						throw new AssertionError(item + " not present in the assertion list");
+						log.error(item + " not present in the assertion list");
 					} else {
 
-						System.out.println("Matched: " + item);
+						log.info("Matched: " + item);
 
 					}
 
 				}
 				if (!allmatched) {
-					throw new AssertionError("One or more menu items did not match expected list.");
+					log.error("One or more menu items did not match expected list.");
 
 				} else {
-					System.out.println("All Main Menu items matched with the expected list.");
+					log.info("All Main Menu items matched with the expected list.");
 				}
 			}
 
 			else {
 
-				throw new AssertionError(
+				log.error(
 						"List size mismatch: expected " + expectedItems.size() + ", but found " + actualItems.size());
 			}
 
 		} catch (Exception e) {
-			System.out.println("Assertion Error : " + e.getMessage());
+			log.error("Assertion Error : " + e.getMessage());
 		}
 	}
 

@@ -16,9 +16,9 @@ public class LoginTest extends BaseClass {
 
 		SoftAssert sa = new SoftAssert();
 
-		System.out.println("****** On Login Page ******");
 		lp = new LoginPage(driver);
 		sa.assertTrue(lp.lblLoginIsDisplayed());
+
 		lp.enter_username_password("Admin", "admin123");
 
 		sa.assertTrue(lp.forgetPwdLinkIsDisplayed());
@@ -27,7 +27,6 @@ public class LoginTest extends BaseClass {
 		lp.click_on_login();
 
 		lp.dashboardIsDisplayed();
-		System.out.println("****** On Dashboard Page ******");
 		Utilities.takeScreenshot("Dashboard");
 
 		sa.assertAll();
