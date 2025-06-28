@@ -1,41 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+<testng-results ignored="6" total="10" passed="4" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-06-24T20:42:28 IST" name="Default suite" finished-at="2025-06-24T20:43:31 IST" duration-ms="62778">
+  <suite started-at="2025-06-26T20:42:34 IST" name="OHRM Suite" finished-at="2025-06-26T20:43:35 IST" duration-ms="61028">
     <groups>
     </groups>
-    <test started-at="2025-06-24T20:42:28 IST" name="Default test" finished-at="2025-06-24T20:43:31 IST" duration-ms="62778">
-      <class name="com.TestClass.EmployeeCreationTest">
-        <test-method is-config="true" signature="deleteDirectory()[pri:0, instance:com.TestClass.EmployeeCreationTest@2f9f7dcf]" started-at="2025-06-24T20:42:27 IST" name="deleteDirectory" finished-at="2025-06-24T20:42:28 IST" duration-ms="754" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- deleteDirectory -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.TestClass.EmployeeCreationTest@2f9f7dcf]" started-at="2025-06-24T20:42:28 IST" name="setup" finished-at="2025-06-24T20:42:36 IST" duration-ms="7893" status="PASS">
+    <test started-at="2025-06-26T20:42:34 IST" name="Functional Test" finished-at="2025-06-26T20:43:35 IST" duration-ms="61028">
+      <class name="com.TestClass.DashboardTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.TestClass.DashboardTest@55b699ef]" started-at="2025-06-26T20:42:48 IST" name="setup" finished-at="2025-06-26T20:42:53 IST" duration-ms="4442" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="employeeCreation()[pri:1, instance:com.TestClass.EmployeeCreationTest@2f9f7dcf]" started-at="2025-06-24T20:42:36 IST" name="employeeCreation" finished-at="2025-06-24T20:43:06 IST" duration-ms="30143" status="PASS">
+        <test-method signature="dashboardPageTest()[pri:0, instance:com.TestClass.DashboardTest@55b699ef]" started-at="2025-06-26T20:42:53 IST" name="dashboardPageTest" finished-at="2025-06-26T20:43:02 IST" duration-ms="9104" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- employeeCreation -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.TestClass.EmployeeCreationTest@2f9f7dcf]" started-at="2025-06-24T20:43:06 IST" name="tearDown" finished-at="2025-06-24T20:43:06 IST" duration-ms="229" status="PASS">
+        </test-method> <!-- dashboardPageTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.TestClass.DashboardTest@55b699ef]" started-at="2025-06-26T20:43:02 IST" name="tearDown" finished-at="2025-06-26T20:43:02 IST" duration-ms="200" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.TestClass.EmployeeCreationTest@2f9f7dcf]" started-at="2025-06-24T20:43:06 IST" name="setup" finished-at="2025-06-24T20:43:16 IST" duration-ms="9805" status="PASS">
+      </class> <!-- com.TestClass.DashboardTest -->
+      <class name="com.TestClass.LoginTest">
+        <test-method is-config="true" signature="deleteDirectory()[pri:0, instance:com.TestClass.LoginTest@35e2d654]" started-at="2025-06-26T20:42:33 IST" name="deleteDirectory" finished-at="2025-06-26T20:42:34 IST" duration-ms="750" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deleteDirectory -->
+        <test-method is-config="true" signature="setupReport()[pri:0, instance:com.TestClass.LoginTest@35e2d654]" started-at="2025-06-26T20:42:34 IST" name="setupReport" finished-at="2025-06-26T20:42:34 IST" duration-ms="283" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupReport -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.TestClass.LoginTest@35e2d654]" started-at="2025-06-26T20:42:34 IST" name="setup" finished-at="2025-06-26T20:42:41 IST" duration-ms="6335" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="employeeSearch()[pri:2, instance:com.TestClass.EmployeeCreationTest@2f9f7dcf]" started-at="2025-06-24T20:43:16 IST" name="employeeSearch" finished-at="2025-06-24T20:43:30 IST" duration-ms="14338" status="PASS">
+        <test-method signature="loginTest()[pri:0, instance:com.TestClass.LoginTest@35e2d654]" started-at="2025-06-26T20:42:41 IST" name="loginTest" finished-at="2025-06-26T20:42:48 IST" duration-ms="7388" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.TestClass.LoginTest@35e2d654]" started-at="2025-06-26T20:42:48 IST" name="tearDown" finished-at="2025-06-26T20:42:48 IST" duration-ms="235" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="flushReport()[pri:0, instance:com.TestClass.LoginTest@35e2d654]" started-at="2025-06-26T20:43:36 IST" name="flushReport" finished-at="2025-06-26T20:43:36 IST" duration-ms="16" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- flushReport -->
+      </class> <!-- com.TestClass.LoginTest -->
+      <class name="com.TestClass.EmployeeCreationTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.TestClass.EmployeeCreationTest@35d019a3]" started-at="2025-06-26T20:43:02 IST" name="setup" finished-at="2025-06-26T20:43:07 IST" duration-ms="5010" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="employeeCreation()[pri:1, instance:com.TestClass.EmployeeCreationTest@35d019a3]" started-at="2025-06-26T20:43:07 IST" name="employeeCreation" finished-at="2025-06-26T20:43:19 IST" duration-ms="12407" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- employeeCreation -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.TestClass.EmployeeCreationTest@35d019a3]" started-at="2025-06-26T20:43:19 IST" name="tearDown" finished-at="2025-06-26T20:43:20 IST" duration-ms="936" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.TestClass.EmployeeCreationTest@35d019a3]" started-at="2025-06-26T20:43:20 IST" name="setup" finished-at="2025-06-26T20:43:25 IST" duration-ms="4787" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="employeeSearch()[pri:2, instance:com.TestClass.EmployeeCreationTest@35d019a3]" started-at="2025-06-26T20:43:25 IST" name="employeeSearch" finished-at="2025-06-26T20:43:35 IST" duration-ms="9874" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- employeeSearch -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.TestClass.EmployeeCreationTest@2f9f7dcf]" started-at="2025-06-24T20:43:30 IST" name="tearDown" finished-at="2025-06-24T20:43:31 IST" duration-ms="323" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.TestClass.EmployeeCreationTest@35d019a3]" started-at="2025-06-26T20:43:35 IST" name="tearDown" finished-at="2025-06-26T20:43:35 IST" duration-ms="259" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.TestClass.EmployeeCreationTest -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    </test> <!-- Functional Test -->
+  </suite> <!-- OHRM Suite -->
 </testng-results>

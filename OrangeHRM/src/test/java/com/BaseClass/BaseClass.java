@@ -8,9 +8,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
+import com.Utilities.ReportManager;
 import com.Utilities.Utilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -22,7 +24,6 @@ public class BaseClass {
 
 	String url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 
-
 	@BeforeMethod
 	public void setup() {
 		try {
@@ -30,7 +31,7 @@ public class BaseClass {
 			if (browser.equalsIgnoreCase("chrome")) {
 				ChromeOptions co = new ChromeOptions();
 				co.addArguments("--force-device-scale-factor=1.25");
-  
+
 				WebDriverManager.chromedriver().setup();
 				driver = new ChromeDriver(co);
 			} else if (browser.equalsIgnoreCase("edge")) {
@@ -66,4 +67,15 @@ public class BaseClass {
 		Utilities.delete_directory();
 	}
 
+	@BeforeSuite
+	public void setupReport() {
+		ReportManager.setupExtendReport();
+	}
+
+	
+	@AfterSuite
+	public void flushReport() {
+		ReportManager.flushReport();
+	}
+	
 }

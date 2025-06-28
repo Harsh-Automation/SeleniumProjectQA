@@ -39,6 +39,9 @@ public class EmployeeCreationPage {
 	By btn_submit = By
 			.cssSelector("[class=\"oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space\"]");
 
+	By tbl_firstname = By
+			.xpath("//div[@class='oxd-table-row oxd-table-row--with-border oxd-table-row--clickable']/div[3]");
+
 	public EmployeeCreationPage(WebDriver driver) {
 		this.driver = driver;
 		log.info(this.getClass().getSimpleName() + " object initialized.");
@@ -85,7 +88,7 @@ public class EmployeeCreationPage {
 	}
 
 	public void setFirstName(String firstName) {
-        log.info("Entering first name: " + firstName);
+		log.info("Entering first name: " + firstName);
 
 		driver.findElement(txt_firstName).clear();
 
@@ -93,7 +96,7 @@ public class EmployeeCreationPage {
 	}
 
 	public void setMiddleName(String middleName) {
-        log.info("Entering middle name: " + middleName);
+		log.info("Entering middle name: " + middleName);
 
 		driver.findElement(txt_middleName).clear();
 
@@ -101,7 +104,7 @@ public class EmployeeCreationPage {
 	}
 
 	public void setLastName(String lastName) {
-        log.info("Entering last name: " + lastName);
+		log.info("Entering last name: " + lastName);
 
 		driver.findElement(txt_lastName).clear();
 
@@ -109,8 +112,8 @@ public class EmployeeCreationPage {
 	}
 
 	public void setEmployeeId(int empId) {
-		
-        log.info("Setting employee ID: " + empId);
+
+		log.info("Setting employee ID: " + empId);
 
 		Utilities.clearInputField(driver.findElement(txt_empId));
 
@@ -118,22 +121,22 @@ public class EmployeeCreationPage {
 	}
 
 	public boolean saveBtnIsEnabled() {
-		
-        log.info("Save button enabled: " );
+
+		log.info("Save button enabled: ");
 
 		return driver.findElement(btn_save).isEnabled();
 	}
 
 	public void clickOnSaveBtn() {
-		
-        log.info("Clicking on Save button.");
+
+		log.info("Clicking on Save button.");
 
 		driver.findElement(btn_save).click();
 	}
 
 	public String verifySuccessMsg() {
 
-        log.info("Waiting for success message.");
+		log.info("Waiting for success message.");
 
 		Utilities.waitForElement(driver.findElement(msg_success));
 
@@ -141,29 +144,37 @@ public class EmployeeCreationPage {
 	}
 
 	public void searchEmployeeName(String empName) {
-		
-        log.info("Searching employee name: " + empName);
 
+		log.info("Searching employee name: " + empName);
 
 		driver.findElement(search_field_employeename).sendKeys(empName);
 
 		Utilities.waitForElement(driver.findElement(select_first_search_result));
 		driver.findElement(select_first_search_result).click();
-        log.info("Selected employee from search results.");
+		log.info("Selected employee from search results.");
 
 	}
 
 	public boolean submitBtnIsEnabled() {
-		
-        log.info("Submit button enabled: ");
+
+		log.info("Submit button enabled. ");
 
 		return driver.findElement(btn_submit).isEnabled();
 	}
 
 	public void clickOnSubmitBtn() {
-		
-        log.info("Clicking on Submit button.");
+
+		log.info("Clicking on Submit button.");
 
 		driver.findElement(btn_submit).click();
+	}
+
+	public String verifyEmployeeNameFromTable() {
+
+		Utilities.waitForElement(driver.findElement(tbl_firstname));
+		String empname = driver.findElement(tbl_firstname).getText();
+		log.info("Verifying employee name: " + empname);
+
+		return empname;
 	}
 }

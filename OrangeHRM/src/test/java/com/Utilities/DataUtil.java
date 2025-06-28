@@ -8,11 +8,12 @@ import com.github.javafaker.Faker;
 public class DataUtil {
 
 	public static Faker faker = new Faker();
-	
+
 	public static final String firstName = randomFirstName();
+	public static final String middleName = randomMiddleName();
+
 	public static final int empId = randomNumber();
 	public static final String emailId = randomEmailID();
-
 
 	public static String timestamp() {
 
@@ -24,11 +25,11 @@ public class DataUtil {
 		return faker.name().firstName();
 	}
 
-	public static String randomMiddleName()
-	{
+	public static String randomMiddleName() {
 		return faker.name().firstName();
-		
+
 	}
+
 	public static String randomLastName() {
 		return faker.name().lastName();
 	}

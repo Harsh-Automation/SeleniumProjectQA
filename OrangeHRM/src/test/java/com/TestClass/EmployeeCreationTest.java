@@ -1,31 +1,26 @@
 package com.TestClass;
 
-
-import java.util.List;
-
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import com.BaseClass.BaseClass;
 import com.PageClass.LoginPage;
 import com.Utilities.DataUtil;
-import com.Utilities.LoggerUtil;
 import com.Utilities.Utilities;
+import com.PageClass.DashboardPage;
 import com.PageClass.EmployeeCreationPage;
-
 
 public class EmployeeCreationTest extends BaseClass {
 
 	LoginPage lp;
 	EmployeeCreationPage ec;
+	DashboardPage dp;
 
 	@Test(priority = 1)
 	public void employeeCreation() throws Exception {
 
 		SoftAssert sa = new SoftAssert();
 		lp = new LoginPage(driver);
-
-	
 
 		lp.enter_username_password("Admin", "admin123");
 		Thread.sleep(1000);
@@ -47,7 +42,7 @@ public class EmployeeCreationTest extends BaseClass {
 		Utilities.takeScreenshot("Employee_creation_page");
 
 		ec.setFirstName(DataUtil.firstName);
-		ec.setMiddleName(DataUtil.randomMiddleName());
+		ec.setMiddleName(DataUtil.middleName);
 		ec.setLastName(DataUtil.randomLastName());
 		ec.setEmployeeId(DataUtil.randomNumber());
 
@@ -58,6 +53,10 @@ public class EmployeeCreationTest extends BaseClass {
 
 		sa.assertEquals(ec.verifySuccessMsg(), "Successfully Saved");
 		Utilities.takeScreenshot("Success_Toaster_message");
+
+		dp = new DashboardPage(driver);
+		dp.clickOnProfileIconDD();
+		dp.cLickOnLogoutBtn();
 
 		sa.assertAll();
 
@@ -87,9 +86,14 @@ public class EmployeeCreationTest extends BaseClass {
 		sa.assertTrue(ec.submitBtnIsEnabled());
 		ec.clickOnSubmitBtn();
 
+		Thread.sleep(1000);
+
+		sa.assertEquals(ec.verifyEmployeeNameFromTable(), DataUtil.firstName+ " "+DataUtil.middleName);
 		Utilities.takeScreenshot("Search_result");
 
-		Thread.sleep(1000);
+		dp = new DashboardPage(driver);
+		dp.clickOnProfileIconDD();
+		dp.cLickOnLogoutBtn();
 
 		sa.assertAll();
 
