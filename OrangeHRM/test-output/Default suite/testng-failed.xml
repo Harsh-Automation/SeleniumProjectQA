@@ -3,14 +3,19 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.TestClass.EmployeeCreationTest">
+      <class name="com.TestClass.LoginTest">
         <methods>
+          <include name="caseSensitivityTest"/>
+          <include name="setupReport"/>
+          <include name="verifyForgotPasswordLinkVisible"/>
           <include name="tearDown"/>
           <include name="deleteDirectory"/>
+          <include name="emptyUsernamePasswordTest"/>
           <include name="setup"/>
-          <include name="employeeSearch"/>
+          <include name="flushReport"/>
+          <include name="loginTest"/>
         </methods>
-      </class> <!-- com.TestClass.EmployeeCreationTest -->
+      </class> <!-- com.TestClass.LoginTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
