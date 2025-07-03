@@ -6,16 +6,16 @@
   </listeners>
   <test thread-count="5" name="Functional Test(failed)">
     <classes>
-      <class name="com.TestClass.LoginTest">
+      <class name="com.TestClass.EmployeeCreationTest">
         <methods>
           <include name="setupReport"/>
           <include name="tearDown"/>
           <include name="deleteDirectory"/>
           <include name="setup"/>
           <include name="flushReport"/>
-          <include name="loginTest"/>
+          <include name="employeeSearch"/>
         </methods>
-      </class> <!-- com.TestClass.LoginTest -->
+      </class> <!-- com.TestClass.EmployeeCreationTest -->
     </classes>
   </test> <!-- Functional Test(failed) -->
 </suite> <!-- Failed suite [OHRM Suite] -->

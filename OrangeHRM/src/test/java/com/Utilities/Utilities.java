@@ -25,8 +25,6 @@ public class Utilities extends BaseClass {
 	public static JavascriptExecutor js;
 	static Logger log = LogManager.getLogger(Utilities.class);
 
-
-
 	public static void takeScreenshot(String scrName) throws IOException {
 		File dir = new File("Screenshots");
 
@@ -83,6 +81,7 @@ public class Utilities extends BaseClass {
 					if (!expectedItems.contains(item)) {
 						allmatched = false;
 						log.error(item + " not present in the assertion list");
+						ReportManager.getTest().fail(item + " not present in the assertion list");
 					} else {
 
 						log.info("Matched: " + item);
@@ -92,6 +91,7 @@ public class Utilities extends BaseClass {
 				}
 				if (!allmatched) {
 					log.error("One or more menu items did not match expected list.");
+					ReportManager.getTest().fail("One or more menu items did not match expected list.");
 
 				} else {
 					log.info("All Main Menu items matched with the expected list.");
@@ -100,8 +100,10 @@ public class Utilities extends BaseClass {
 
 			else {
 
-				log.error(
+				log.error("List size mismatch: expected " + expectedItems.size() + ", but found " + actualItems.size());
+				ReportManager.getTest().fail(
 						"List size mismatch: expected " + expectedItems.size() + ", but found " + actualItems.size());
+
 			}
 
 		} catch (Exception e) {

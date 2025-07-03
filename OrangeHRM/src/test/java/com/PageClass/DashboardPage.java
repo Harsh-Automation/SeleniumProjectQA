@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.Utilities.ElementUtility;
+
 public class DashboardPage {
 
 	WebDriver driver;
@@ -20,7 +22,7 @@ public class DashboardPage {
 
 	By main_menu_item_list = By.xpath("//*[@class='oxd-sidepanel-body']/ul/li/a/span");
 
-	By dropdown_profile_section = By.cssSelector(".oxd-icon.bi-caret-down-fill.oxd-userdropdown-icon");
+	By dropdown_profile_section = By.cssSelector("[class='oxd-icon bi-caret-down-fill oxd-userdropdown-icon']");
 	By dropdown_options_profile_section = By.xpath("//ul[@class='oxd-dropdown-menu']/li");
 
 	By btn_logout = By.linkText("Logout");
@@ -33,27 +35,20 @@ public class DashboardPage {
 	public String verifyDashboardHeaderLabel()
 
 	{
-		String headerText = driver.findElement(label_dashboard).getText();
-		log.info("Dashboard header label: " + headerText);
-
-		return headerText;
+		return ElementUtility.getTextFromElement(label_dashboard);
 	}
 
 	public boolean verifyOHRMLogiIsDisplayed()
 
 	{
-		log.info("OHRM logo displayed: ");
-
-		return driver.findElement(logo_OHRM).isDisplayed();
+		return ElementUtility.elementIsDisplayed(logo_OHRM, "OrangeHRM Logo");
 
 	}
 
 	public boolean verifyProfileSectionIsDisplayed()
 
 	{
-		log.info("Profile section displayed: ");
-
-		return driver.findElement(profile_icon_section).isDisplayed();
+		return ElementUtility.elementIsDisplayed(profile_icon_section, "Profile icon section");
 
 	}
 
@@ -66,9 +61,7 @@ public class DashboardPage {
 	}
 
 	public void clickOnProfileIconDD() {
-		log.info("Clicking on profile icon dropdown.");
-
-		driver.findElement(dropdown_profile_section).click();
+		ElementUtility.clickOnElement(profile_icon_section, "Profile Icon");
 	}
 
 	public List<WebElement> verifyProfileSectionItems() {
@@ -80,9 +73,8 @@ public class DashboardPage {
 
 	public void cLickOnLogoutBtn() {
 
-		log.info("Clicking on logout button.");
+		ElementUtility.clickOnElement(btn_logout, "Logout Button");
 
-		driver.findElement(btn_logout).click();
 	}
 
 }

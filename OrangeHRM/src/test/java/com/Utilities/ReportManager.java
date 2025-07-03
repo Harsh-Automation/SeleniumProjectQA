@@ -9,9 +9,10 @@ public class ReportManager {
 
 	public static ExtentSparkReporter reporter;
 	public static ExtentReports report;
-	public static ExtentTest test;
 
-	public static final String reportPath = "reports/ExecutionReport.html";
+	public static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
+
+	static final String reportPath = "reports/ExecutionReport.html";
 
 	public static void setupExtendReport() {
 
@@ -28,5 +29,15 @@ public class ReportManager {
 
 	public static void flushReport() {
 		report.flush();
+	}
+
+	public static ExtentTest createTest(String testName) {
+		ExtentTest test = report.createTest(testName);
+		extentTest.set(test);
+		return test;
+	}
+
+	public static ExtentTest getTest() {
+		return extentTest.get();
 	}
 }

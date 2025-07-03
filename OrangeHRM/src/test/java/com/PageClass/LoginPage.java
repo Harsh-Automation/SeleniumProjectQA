@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import com.Utilities.Utilities;
+import com.Utilities.ElementUtility;
 
 public class LoginPage {
 
@@ -13,22 +13,23 @@ public class LoginPage {
 
 	WebDriver driver;
 
-	By lbl_login = By.cssSelector(".oxd-text.oxd-text--h5.orangehrm-login-title");
+	By lbl_login = By.cssSelector("[class='oxd-text oxd-text--h5 orangehrm-login-title']");
 	By ip_field_username = By.cssSelector("input[placeholder='Username']");
 	By ip_field_password = By.cssSelector("input[placeholder='Password']");
 
 	By btn_login = By.cssSelector("button[type='submit']");
 
-	By link_forget_fwd = By.cssSelector(".oxd-text.oxd-text--p.orangehrm-login-forgot-header");
+	By link_forget_fwd = By.cssSelector("[class='oxd-text oxd-text--p orangehrm-login-forgot-header']");
+	
 
 	By dashboard_graph = By.xpath("//div[@class='emp-distrib-chart']/div/canvas");
 
-	By login_alert_Message = By.cssSelector(".oxd-text.oxd-text--p.oxd-alert-content-text");
+	By login_alert_Message = By.cssSelector("[class='oxd-text oxd-text--p oxd-alert-content-text']");
 
 	By username_error_message = By.xpath("//input[@placeholder='Username']/../../span");
 	By password_error_message = By.xpath("//input[@placeholder='Password']/../../span");
 
-	By forgot_Password_Title = By.cssSelector(".oxd-text.oxd-text--h6.orangehrm-forgot-password-title");
+	By forgot_Password_Title = By.cssSelector("[class='oxd-text oxd-text--h6 orangehrm-forgot-password-title']");
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
@@ -37,76 +38,58 @@ public class LoginPage {
 	}
 
 	public boolean lblLoginIsDisplayed() {
-		log.info("Login label displayed: ");
 
-		return driver.findElement(lbl_login).isDisplayed();
+		return ElementUtility.elementIsDisplayed(lbl_login, "Login Label");
 	}
 
 	public void enter_username_password(String username, String password) {
-		log.info("Entering username." + username);
-		driver.findElement(ip_field_username).sendKeys(username);
 
-		log.info("Entering password.");
-		driver.findElement(ip_field_password).sendKeys(password);
+		ElementUtility.inputIntoField(ip_field_username, "Username field", username);
+		ElementUtility.inputIntoField(ip_field_password, "Password field", password);
 
-		log.info("Entered credentials for user: " + username);
 	}
 
 	public void click_on_login() {
-		log.info("Clicking on login button.");
+		ElementUtility.clickOnElement(btn_login, "login Button");
 
-		driver.findElement(btn_login).click();
 	}
 
 	public boolean forgetPwdLinkIsDisplayed() {
-		log.info("Forgot Password link displayed: ");
+		return ElementUtility.elementIsDisplayed(link_forget_fwd, "Forget Password Link");
 
-		return driver.findElement(link_forget_fwd).isDisplayed();
 	}
 
 	public void clickOnForgetPWDLink() {
 
-		log.info("Clicking on Forget Password Link.");
+		ElementUtility.clickOnElement(link_forget_fwd, "Forget Password Link");
 
-		driver.findElement(link_forget_fwd).click();
 	}
 
 	public String getForgetPasswordTitle() {
-		log.info("Verifying Forget Password Header Title.");
 
-		Utilities.waitForElement(driver.findElement(forgot_Password_Title));
-		return driver.findElement(forgot_Password_Title).getText();
+		return ElementUtility.getTextFromElement(forgot_Password_Title);
+
 	}
 
 	public void dashboardIsDisplayed() {
-		Utilities.waitForElement(driver.findElement(dashboard_graph));
-		log.info("Dashboard graph is displayed.");
+		ElementUtility.elementIsDisplayed(dashboard_graph, "Dashboard graph");
 
 	}
 
 	public String verifyLoginAlertMessage() {
-		Utilities.waitForElement(driver.findElement(login_alert_Message));
-
-		String alertMessage = driver.findElement(login_alert_Message).getText();
-
-		log.info("Verifying login alert message :" + alertMessage);
-
-		return alertMessage;
+		return ElementUtility.getTextFromElement(login_alert_Message);
 
 	}
 
 	public String getUsernameErrorMessage() {
 
-		log.info("Verifying username error message");
-
-		return driver.findElement(username_error_message).getText();
+		return ElementUtility.getTextFromElement(username_error_message);
 	}
 
 	public String getPasswordErrorMessage() {
 
-		log.info("Verifying password alert message ");
+		return ElementUtility.getTextFromElement(password_error_message);
 
-		return driver.findElement(password_error_message).getText();
 	}
 
 }

@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.Utilities.ElementUtility;
 import com.Utilities.Utilities;
 
 public class EmployeeCreationPage {
@@ -50,65 +51,49 @@ public class EmployeeCreationPage {
 
 	public void cLickOnPIMOption() {
 
-		log.info("Clicking on PIM menu option.");
-
-		driver.findElement(main_menu_option_PIM).click();
+		ElementUtility.clickOnElement(main_menu_option_PIM, "PIM menu");
 	}
 
 	public String verifyPIMHeader() {
 
-		String header = driver.findElement(header_title).getText();
-		log.info("PIM header text: " + header);
-		return header;
+		return ElementUtility.getTextFromElement(header_title);
+
 	}
 
 	public boolean addBtnIsDisplayed() {
-		log.info("Add button displayed: ");
+		return ElementUtility.elementIsDisplayed(btn_add, "Add button");
 
-		return driver.findElement(btn_add).isDisplayed();
 	}
 
 	public String verifyAddEmployeeHeader() {
-		String header = driver.findElement(lbl_addEmployee).getText();
-		log.info("Add Employee header text: " + header);
-		return header;
+		return ElementUtility.getTextFromElement(lbl_addEmployee);
 	}
 
 	public void clickOnAddBtn() {
-		log.info("Clicking on Add button.");
+		ElementUtility.clickOnElement(btn_add, "Add button");
 
-		driver.findElement(btn_add).click();
 	}
 
 	public boolean footerIsDisplayed() {
-		log.info("Waiting for footer section to be visible.");
-
-		Utilities.waitForElement(driver.findElement(footer_addEmployee));
-		return driver.findElement(footer_addEmployee).isDisplayed();
+		return ElementUtility.elementIsDisplayed(footer_addEmployee, "Employee page footer");
 	}
 
 	public void setFirstName(String firstName) {
-		log.info("Entering first name: " + firstName);
+		Utilities.clearInputField(driver.findElement(txt_firstName));
 
-		driver.findElement(txt_firstName).clear();
-
-		driver.findElement(txt_firstName).sendKeys(firstName);
+		ElementUtility.inputIntoField(txt_firstName, "Employee first name input field", firstName);
 	}
 
 	public void setMiddleName(String middleName) {
-		log.info("Entering middle name: " + middleName);
+		Utilities.clearInputField(driver.findElement(txt_middleName));
 
-		driver.findElement(txt_middleName).clear();
-
-		driver.findElement(txt_middleName).sendKeys(middleName);
+		ElementUtility.inputIntoField(txt_middleName, "Employee middle name input field", middleName);
 	}
 
 	public void setLastName(String lastName) {
-		log.info("Entering last name: " + lastName);
+		Utilities.clearInputField(driver.findElement(txt_lastName));
 
-		driver.findElement(txt_lastName).clear();
-
-		driver.findElement(txt_lastName).sendKeys(lastName);
+		ElementUtility.inputIntoField(txt_lastName, "Employee last name input field", lastName);
 	}
 
 	public void setEmployeeId(int empId) {
@@ -117,64 +102,46 @@ public class EmployeeCreationPage {
 
 		Utilities.clearInputField(driver.findElement(txt_empId));
 
-		driver.findElement(txt_empId).sendKeys(String.valueOf(empId));
+		ElementUtility.inputIntoField(txt_empId, "Employee ID input field", String.valueOf(empId));
 	}
 
 	public boolean saveBtnIsEnabled() {
 
-		log.info("Save button enabled: ");
+		return ElementUtility.elementIsEnabled(btn_save, "Save Button");
 
-		return driver.findElement(btn_save).isEnabled();
 	}
 
 	public void clickOnSaveBtn() {
 
-		log.info("Clicking on Save button.");
+		ElementUtility.clickOnElement(btn_save, "Save button");
 
-		driver.findElement(btn_save).click();
 	}
 
 	public String verifySuccessMsg() {
 
-		log.info("Waiting for success message.");
-
-		Utilities.waitForElement(driver.findElement(msg_success));
-
-		return driver.findElement(msg_success).getText();
+		return ElementUtility.getTextFromElement(msg_success);
 	}
 
 	public void searchEmployeeName(String empName) {
 
-		log.info("Searching employee name: " + empName);
-
-		driver.findElement(search_field_employeename).sendKeys(empName);
-
-		Utilities.waitForElement(driver.findElement(select_first_search_result));
-		driver.findElement(select_first_search_result).click();
-		log.info("Selected employee from search results.");
+		ElementUtility.inputIntoField(search_field_employeename, "Employee name", empName);
+		ElementUtility.clickOnElement(select_first_search_result, "First Employee name");
 
 	}
 
 	public boolean submitBtnIsEnabled() {
 
-		log.info("Submit button enabled. ");
-
-		return driver.findElement(btn_submit).isEnabled();
+		return ElementUtility.elementIsEnabled(btn_submit, "Submit Button");
 	}
 
 	public void clickOnSubmitBtn() {
 
-		log.info("Clicking on Submit button.");
+		ElementUtility.clickOnElement(btn_submit, "Save button");
 
-		driver.findElement(btn_submit).click();
 	}
 
 	public String verifyEmployeeNameFromTable() {
 
-		Utilities.waitForElement(driver.findElement(tbl_firstname));
-		String empname = driver.findElement(tbl_firstname).getText();
-		log.info("Verifying employee name: " + empname);
-
-		return empname;
+		return ElementUtility.getTextFromElement(tbl_firstname);
 	}
 }

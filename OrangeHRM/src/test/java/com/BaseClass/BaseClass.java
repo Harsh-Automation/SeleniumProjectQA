@@ -2,6 +2,8 @@ package com.BaseClass;
 
 import java.time.Duration;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -22,7 +24,9 @@ public class BaseClass {
 	public static WebDriver driver;
 	String browser = "chrome";
 
-	String url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+	public static String  url = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+
+	static Logger log = LogManager.getLogger(BaseClass.class);
 
 	@BeforeMethod
 	public void setup() {
@@ -58,7 +62,7 @@ public class BaseClass {
 	public void tearDown() {
 		if (driver != null) {
 			driver.quit();
-			System.out.println("Browser is closed");
+
 		}
 	}
 
@@ -70,12 +74,15 @@ public class BaseClass {
 	@BeforeSuite
 	public void setupReport() {
 		ReportManager.setupExtendReport();
+	
+
 	}
 
-	
 	@AfterSuite
 	public void flushReport() {
+		ReportManager.getTest().info("Browser closed and WebDriver quit");
+
 		ReportManager.flushReport();
 	}
-	
+
 }

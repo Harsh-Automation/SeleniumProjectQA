@@ -4,11 +4,12 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import com.BaseClass.BaseClass;
-import com.PageClass.LoginPage;
-import com.Utilities.DataUtil;
-import com.Utilities.Utilities;
 import com.PageClass.DashboardPage;
 import com.PageClass.EmployeeCreationPage;
+import com.PageClass.LoginPage;
+import com.Utilities.DataUtil;
+import com.Utilities.JavaScriptUtility;
+import com.Utilities.Utilities;
 
 public class EmployeeCreationTest extends BaseClass {
 
@@ -20,6 +21,7 @@ public class EmployeeCreationTest extends BaseClass {
 	public void employeeCreation() throws Exception {
 
 		SoftAssert sa = new SoftAssert();
+
 		lp = new LoginPage(driver);
 
 		lp.enter_username_password("Admin", "admin123");
@@ -28,8 +30,8 @@ public class EmployeeCreationTest extends BaseClass {
 		lp.click_on_login();
 
 		ec = new EmployeeCreationPage(driver);
-
 		ec.cLickOnPIMOption();
+
 		Utilities.takeScreenshot("PIM_Page");
 
 		sa.assertEquals(ec.verifyPIMHeader(), "PIM");
@@ -37,10 +39,12 @@ public class EmployeeCreationTest extends BaseClass {
 		sa.assertEquals(ec.addBtnIsDisplayed(), true);
 
 		ec.clickOnAddBtn();
-		sa.assertEquals(ec.verifyAddEmployeeHeader(), "Add Employee");
-		sa.assertEquals(ec.footerIsDisplayed(), true);
-		Utilities.takeScreenshot("Employee_creation_page");
 
+		sa.assertEquals(ec.verifyAddEmployeeHeader(), "Add Employee");
+
+		sa.assertEquals(ec.footerIsDisplayed(), true);
+
+		Utilities.takeScreenshot("Employee_creation_page");
 		ec.setFirstName(DataUtil.firstName);
 		ec.setMiddleName(DataUtil.middleName);
 		ec.setLastName(DataUtil.randomLastName());
@@ -49,17 +53,18 @@ public class EmployeeCreationTest extends BaseClass {
 		Utilities.takeScreenshot("Filled_Employee_data");
 
 		sa.assertTrue(ec.saveBtnIsEnabled());
+
 		ec.clickOnSaveBtn();
 
-		sa.assertEquals(ec.verifySuccessMsg(), "Successfully Saved");
-		Utilities.takeScreenshot("Success_Toaster_message");
+		String successMsg = ec.verifySuccessMsg();
+		sa.assertEquals(successMsg, "Successfully Saved");
 
+		Utilities.takeScreenshot("Success_Toaster_message");
 		dp = new DashboardPage(driver);
 		dp.clickOnProfileIconDD();
 		dp.cLickOnLogoutBtn();
 
 		sa.assertAll();
-
 	}
 
 	@Test(priority = 2)
@@ -70,25 +75,25 @@ public class EmployeeCreationTest extends BaseClass {
 
 		lp = new LoginPage(driver);
 		lp.enter_username_password("Admin", "admin123");
-		Thread.sleep(1000);
+
 		lp.click_on_login();
 
 		ec = new EmployeeCreationPage(driver);
-
 		ec.cLickOnPIMOption();
 
 		ec.searchEmployeeName(DataUtil.firstName);
 
-		Thread.sleep(1000);
-
 		Utilities.takeScreenshot("Search_result_lookup");
 
-		sa.assertTrue(ec.submitBtnIsEnabled());
+		sa.assertTrue(ec.submitBtnIsEnabled(),"Submit button is not Enabled");
+
 		ec.clickOnSubmitBtn();
+		JavaScriptUtility.scrollToBottom();
 
-		Thread.sleep(1000);
+		String actualName = ec.verifyEmployeeNameFromTable();
+		String expectedName = DataUtil.firstName + " " + DataUtil.middleName;
+		sa.assertEquals(actualName, expectedName);
 
-		sa.assertEquals(ec.verifyEmployeeNameFromTable(), DataUtil.firstName+ " "+DataUtil.middleName);
 		Utilities.takeScreenshot("Search_result");
 
 		dp = new DashboardPage(driver);
@@ -96,7 +101,6 @@ public class EmployeeCreationTest extends BaseClass {
 		dp.cLickOnLogoutBtn();
 
 		sa.assertAll();
-
 	}
 
 }
