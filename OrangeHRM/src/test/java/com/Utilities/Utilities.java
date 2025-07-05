@@ -85,6 +85,7 @@ public class Utilities extends BaseClass {
 					} else {
 
 						log.info("Matched: " + item);
+						ReportManager.getTest().pass(item + " present in the assertion list");
 
 					}
 
@@ -95,6 +96,8 @@ public class Utilities extends BaseClass {
 
 				} else {
 					log.info("All Main Menu items matched with the expected list.");
+					ReportManager.getTest().fail("All Main Menu items matched with the expected list.");
+
 				}
 			}
 
@@ -108,22 +111,10 @@ public class Utilities extends BaseClass {
 
 		} catch (Exception e) {
 			log.error("Assertion Error : " + e.getMessage());
+			ReportManager.getTest().fail("Assertion Error : " + e.getMessage());
 		}
 	}
 
-	public static void clearInputField(WebElement elementLocator) {
-
-		try {
-
-			js = (JavascriptExecutor) driver;
-
-			js.executeScript("arguments[0].value='';arguments[0].dispatchEvent(new Event('input', { bubbles: true }));",
-					elementLocator);
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-	}
+	
 
 }

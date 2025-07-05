@@ -1,8 +1,12 @@
 package com.Utilities;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import com.BaseClass.BaseClass;
 
@@ -19,10 +23,23 @@ public class ElementUtility extends BaseClass {
 			log.info("Click action Successful on : " + elementName);
 			ReportManager.getTest().pass("Click action Successful on : " + elementName);
 		} catch (Exception e) {
-			log.info("Exception occured while click action on : " + elementName + " " + e.getMessage());
+			log.warn("Exception occured while click action on : " + elementName + " " + e.getMessage());
 
 			ReportManager.getTest()
-					.fail("Exception occured while click action on : " + elementName + " " + e.getMessage());
+					.warning("Exception occured while click action on : " + elementName + " " + e.getMessage());
+
+			try {
+				driver.findElement(locator).click();
+				log.info("Retry click action Successful on : " + elementName);
+				ReportManager.getTest().pass("Retry click action Successful on : " + elementName);
+
+			} catch (Exception e2) {
+				log.warn("Exception occured while retrying click action on : " + elementName + " " + e2.getMessage());
+
+				ReportManager.getTest().warning(
+						"Exception occured while retrying click action on : " + elementName + " " + e2.getMessage());
+
+			}
 
 		}
 
@@ -115,18 +132,94 @@ public class ElementUtility extends BaseClass {
 		try {
 			Utilities.waitForElement(driver.findElement(locator));
 			elementSelected = driver.findElement(locator).isSelected();
-			log.info(elementName + " selected successful");
-			ReportManager.getTest().pass(elementName + " selected successful");
+			log.info(elementName + " is in selected state");
+			ReportManager.getTest().pass(elementName + " is in selected state");
 		} catch (Exception e) {
-			log.info("Exception occured while element to be selected : " + elementName + " " + e.getMessage());
+			log.info("Exception occured while element to be in selected state : " + elementName + " " + e.getMessage());
 
-			ReportManager.getTest()
-					.fail("Exception occured while element to be selected : " + elementName + " " + e.getMessage());
+			ReportManager.getTest().fail(
+					"Exception occured while element to be in selected state : " + elementName + " " + e.getMessage());
 
 		}
 
 		return elementSelected;
 
+	}
+
+	public static void selectByName(By locator, String name) {
+
+		try {
+			Utilities.waitForElement(driver.findElement(locator));
+			Select select = new Select(driver.findElement(locator));
+
+			select.selectByVisibleText(name);
+			log.info(name + " selected successfully from dropdown");
+			ReportManager.getTest().pass(name + " selected successfully from dropdown");
+
+		} catch (Exception e) {
+			log.error("Exception occured while element an element : " + name + " " + e.getMessage());
+			ReportManager.getTest().fail("Exception occured while element an element : " + name + " " + e.getMessage());
+
+		}
+
+	}
+
+	public static void selectCustomDropdownValue(By dropdownLocator, By optionsLocator, String valueName,
+			String elementName) {
+		try {
+			ElementUtility.clickOnElement(dropdownLocator, elementName);
+
+			List<WebElement> optionList = driver.findElements(optionsLocator);
+
+			if (optionList != null && !optionList.isEmpty()) {
+
+				log.info("Options are present in the option list");
+				ReportManager.getTest().pass("Options are present in the option list");
+
+				boolean found = false;
+
+				for (int i = 0; i < optionList.size(); i++) {
+
+					String item = optionList.get(i).getText().trim();
+
+					if (item.equalsIgnoreCase(valueName)) {
+						try {
+							optionList.get(i).click();
+							log.info(item + " : option is selected");
+							ReportManager.getTest().pass(item + " : option is selected");
+							found = true;
+							break;
+
+						}
+
+						catch (Exception e) {
+
+							log.warn("Exception occured while selecting : " + item + " " + e.getMessage());
+
+							ReportManager.getTest()
+									.warning("Exception occured while selecting : " + item + " " + e.getMessage());
+
+							driver.findElements(optionsLocator).get(i).click();
+							log.info(item + " : option is selected after retry");
+							ReportManager.getTest().pass(item + " : option is selected after retry");
+							found = true;
+							break;
+						}
+
+					}
+				}
+				if (!found) {
+					log.info(elementName + " not present in the option list");
+					ReportManager.getTest().pass(elementName + " not present in the option list");
+
+				}
+			}
+		} catch (Exception e) {
+
+			log.error("Exception while selecting option from dropdown: " + e.getMessage());
+			ReportManager.getTest().fail("Exception while selecting option from dropdown: " + e.getMessage());
+
+		}
 	}
 
 }

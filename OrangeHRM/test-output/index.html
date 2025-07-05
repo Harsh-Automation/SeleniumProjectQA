@@ -104,12 +104,12 @@
                     <div class="method-list-content passed suite-OHRM_Suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-OHRM_Suite" title="com.TestClass.EmployeeCreationTest" class="method navigator-link" hash-for-method="employeeCreation">employeeCreation</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-OHRM_Suite" title="com.TestClass.EmployeeCreationTest" class="method navigator-link" hash-for-method="editEmployeeDetails">editEmployeeDetails</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-OHRM_Suite" title="com.TestClass.EmployeeCreationTest" class="method navigator-link" hash-for-method="employeeSearch">employeeSearch</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-OHRM_Suite" title="com.TestClass.EmployeeCreationTest" class="method navigator-link" hash-for-method="employeeCreation">employeeCreation</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-OHRM_Suite -->
@@ -132,16 +132,16 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="employeeCreation">
-                  </a> <!-- employeeCreation -->
-                  <span class="method-name">employeeCreation</span>
+                  <a name="editEmployeeDetails">
+                  </a> <!-- editEmployeeDetails -->
+                  <span class="method-name">editEmployeeDetails</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
-                  <a name="employeeSearch">
-                  </a> <!-- employeeSearch -->
-                  <span class="method-name">employeeSearch</span>
+                  <a name="employeeCreation">
+                  </a> <!-- employeeCreation -->
+                  <span class="method-name">employeeCreation</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -161,7 +161,12 @@
   &lt;/listeners&gt;
   &lt;test thread-count=&quot;1&quot; name=&quot;Functional Test&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.TestClass.EmployeeCreationTest&quot;/&gt;
+      &lt;class name=&quot;com.TestClass.EmployeeCreationTest&quot;&gt;
+        &lt;methods&gt;
+          &lt;include name=&quot;employeeCreation&quot;/&gt;
+          &lt;include name=&quot;editEmployeeDetails&quot;/&gt;
+        &lt;/methods&gt;
+      &lt;/class&gt; &lt;!-- com.TestClass.EmployeeCreationTest --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Functional Test --&gt;
 &lt;/suite&gt; &lt;!-- OHRM Suite --&gt;
@@ -205,16 +210,16 @@ data.addRows(2);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'employeeCreation')
 data.setCell(0, 2, 'com.TestClass.EmployeeCreationTest')
-data.setCell(0, 3, 12259);
+data.setCell(0, 3, 11344);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'employeeSearch')
+data.setCell(1, 1, 'editEmployeeDetails')
 data.setCell(1, 2, 'com.TestClass.EmployeeCreationTest')
-data.setCell(1, 3, 7692);
+data.setCell(1, 3, 11236);
 window.suiteTableData['OHRM_Suite']= { tableData: data, tableDiv: 'times-div-OHRM_Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 19 seconds</span>
+              <span class="suite-total-time">Total running time: 22 seconds</span>
               <div id="times-div-OHRM_Suite">
               </div> <!-- times-div-OHRM_Suite -->
             </div> <!-- times-div -->
@@ -229,9 +234,18 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-OHRM_Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">2 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">com.TestClass.EmployeeCreationTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">invalidSearch</span>
+                <br/>
+                <span class="ignored-method-name">employeeSearch</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-OHRM_Suite" class="panel">
@@ -247,35 +261,35 @@ return data;
               </div> <!-- configuration-suite before -->
               <div class="configuration-suite before">
                 <span class="method-name">setupReport</span>
-                <span class="method-start">28 ms</span>
+                <span class="method-start">30 ms</span>
               </div> <!-- configuration-suite before -->
               <div class="configuration-method before">
                 <span class="method-name">setup</span>
-                <span class="method-start">268 ms</span>
+                <span class="method-start">285 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">employeeCreation</span>
-                <span class="method-start">6221 ms</span>
+                <span class="method-start">7007 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">18483 ms</span>
+                <span class="method-start">18351 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setup</span>
-                <span class="method-start">18722 ms</span>
+                <span class="method-start">19399 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">employeeSearch</span>
-                <span class="method-start">23204 ms</span>
+                <span class="method-name">editEmployeeDetails</span>
+                <span class="method-start">24520 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">30899 ms</span>
+                <span class="method-start">35756 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-suite after">
                 <span class="method-name">flushReport</span>
-                <span class="method-start">31622 ms</span>
+                <span class="method-start">36517 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

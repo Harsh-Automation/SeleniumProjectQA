@@ -1,5 +1,7 @@
 package com.TestClass;
 
+import java.io.IOException;
+
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -85,7 +87,7 @@ public class EmployeeCreationTest extends BaseClass {
 
 		Utilities.takeScreenshot("Search_result_lookup");
 
-		sa.assertTrue(ec.submitBtnIsEnabled(),"Submit button is not Enabled");
+		sa.assertTrue(ec.submitBtnIsEnabled(), "Submit button is not Enabled");
 
 		ec.clickOnSubmitBtn();
 		JavaScriptUtility.scrollToBottom();
@@ -103,4 +105,80 @@ public class EmployeeCreationTest extends BaseClass {
 		sa.assertAll();
 	}
 
+	@Test(priority = 3)
+
+	public void invalidSearch() throws Exception {
+
+		SoftAssert sa = new SoftAssert();
+
+		lp = new LoginPage(driver);
+		lp.enter_username_password("Admin", "admin123");
+
+		lp.click_on_login();
+
+		ec = new EmployeeCreationPage(driver);
+		ec.cLickOnPIMOption();
+
+		ec.searchEmployeeName("Green");
+
+		Utilities.takeScreenshot("invalid_search_result_lookup");
+
+		ec.clickOnSubmitBtn();
+		JavaScriptUtility.scrollToBottom();
+
+		sa.assertTrue(ec.noRecordMsgIsDisplayed(), "No Record Found message is not displayed");
+
+		String recordMessage = ec.verifyNoRecordMessage();
+		sa.assertEquals(recordMessage, "Info\n" + "No Records Found");
+
+		Utilities.takeScreenshot("no_record_found_msg");
+
+		dp = new DashboardPage(driver);
+		dp.clickOnProfileIconDD();
+		dp.cLickOnLogoutBtn();
+
+		sa.assertAll();
+	}
+
+	@Test(priority = 4)
+	public void editEmployeeDetails() throws IOException {
+
+		SoftAssert sa = new SoftAssert();
+
+		lp = new LoginPage(driver);
+		lp.enter_username_password("Admin", "admin123");
+
+		lp.click_on_login();
+
+		ec = new EmployeeCreationPage(driver);
+		ec.cLickOnPIMOption();
+
+		ec.searchEmployeeName(DataUtil.firstName);
+
+		ec.clickOnSubmitBtn();
+		JavaScriptUtility.scrollToBottom();
+		Utilities.takeScreenshot("employee_search_result_for_edit");
+		
+		sa.assertTrue(ec.editButtonIsEnabled(),"Edit button is not enabled");
+		ec.clickOnEditButton();
+		
+		String perosnalheadertitle = ec.getPersonalDetailsHeaderText();
+		sa.assertEquals(perosnalheadertitle, "Personal Details");
+		
+		ec.nationalitySelection("Indian");
+		
+		Utilities.takeScreenshot("Nationality_selected");
+		
+		ec.maritalStatusSelection("Single");
+		Utilities.takeScreenshot("Marital_status_selected");
+
+		dp = new DashboardPage(driver);
+		dp.clickOnProfileIconDD();
+		dp.cLickOnLogoutBtn();
+		
+		Utilities.takeScreenshot("Logout_out_successful");
+
+		sa.assertAll();
+
+	}
 }

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 
 import com.BaseClass.BaseClass;
 
@@ -16,11 +17,11 @@ public class JavaScriptUtility extends BaseClass {
 		try {
 			js = (JavascriptExecutor) driver;
 			js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-			log.info("Scrolled to the bottom of the page.");
+			log.info("Scrolled till the bottom of the page.");
 
-			ReportManager.getTest().info("Scrolled to the bottom of the page.");
+			ReportManager.getTest().info("Scrolled till the bottom of the page.");
 		} catch (Exception e) {
-			log.error("Failed to scroll to bottom: " + e.getMessage());
+			log.error("Failed to scroll till to bottom: " + e.getMessage());
 
 			ReportManager.getTest().fail("Failed to scroll till the bottom: " + e.getMessage());
 		}
@@ -36,6 +37,20 @@ public class JavaScriptUtility extends BaseClass {
 		} catch (Exception e) {
 			ReportManager.getTest().fail("Failed to scroll to element: " + elementName + " - " + e.getMessage());
 		}
+	}
+	public static void clearInputField(WebElement elementLocator) {
+
+		try {
+
+			js = (JavascriptExecutor) driver;
+
+			js.executeScript("arguments[0].value='';arguments[0].dispatchEvent(new Event('input', { bubbles: true }));",
+					elementLocator);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 
 }

@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.Utilities.ElementUtility;
-import com.Utilities.Utilities;
+import com.Utilities.JavaScriptUtility;
 
 public class EmployeeCreationPage {
 
@@ -42,6 +42,19 @@ public class EmployeeCreationPage {
 
 	By tbl_firstname = By
 			.xpath("//div[@class='oxd-table-row oxd-table-row--with-border oxd-table-row--clickable']/div[3]");
+
+	By noRecord_info_msg = By.cssSelector("[class='oxd-toast-content oxd-toast-content--info']");
+
+	By dd_nationality = By.xpath("//label[contains(text(),'Nationality')]/../../div[2]/div");
+	By dd_option_list = By.xpath("//div[@class='oxd-select-dropdown --positon-bottom']/div");
+
+	By editButton = By.xpath(
+			"//div[@class='oxd-table-row oxd-table-row--with-border oxd-table-row--clickable']/div[9]/div/button[1]");
+
+	By personalDetailsHeader = By.xpath("//div[@class='orangehrm-edit-employee-content']/div[1]/h6");
+	
+	By dd_marital_status = By.xpath("//label[contains(text(),'Marital')]/../../div[2]/div");
+	By marital_status_list = By.xpath("//label[contains(text(),'Marital')]/../../div[2]/div/div[2]/div");
 
 	public EmployeeCreationPage(WebDriver driver) {
 		this.driver = driver;
@@ -79,19 +92,19 @@ public class EmployeeCreationPage {
 	}
 
 	public void setFirstName(String firstName) {
-		Utilities.clearInputField(driver.findElement(txt_firstName));
+		JavaScriptUtility.clearInputField(driver.findElement(txt_firstName));
 
 		ElementUtility.inputIntoField(txt_firstName, "Employee first name input field", firstName);
 	}
 
 	public void setMiddleName(String middleName) {
-		Utilities.clearInputField(driver.findElement(txt_middleName));
+		JavaScriptUtility.clearInputField(driver.findElement(txt_middleName));
 
 		ElementUtility.inputIntoField(txt_middleName, "Employee middle name input field", middleName);
 	}
 
 	public void setLastName(String lastName) {
-		Utilities.clearInputField(driver.findElement(txt_lastName));
+		JavaScriptUtility.clearInputField(driver.findElement(txt_lastName));
 
 		ElementUtility.inputIntoField(txt_lastName, "Employee last name input field", lastName);
 	}
@@ -100,7 +113,7 @@ public class EmployeeCreationPage {
 
 		log.info("Setting employee ID: " + empId);
 
-		Utilities.clearInputField(driver.findElement(txt_empId));
+		JavaScriptUtility.clearInputField(driver.findElement(txt_empId));
 
 		ElementUtility.inputIntoField(txt_empId, "Employee ID input field", String.valueOf(empId));
 	}
@@ -143,5 +156,37 @@ public class EmployeeCreationPage {
 	public String verifyEmployeeNameFromTable() {
 
 		return ElementUtility.getTextFromElement(tbl_firstname);
+	}
+
+	public boolean noRecordMsgIsDisplayed()
+
+	{
+		return ElementUtility.elementIsDisplayed(noRecord_info_msg, "No Record Found message");
+	}
+
+	public String verifyNoRecordMessage() {
+		return ElementUtility.getTextFromElement(noRecord_info_msg);
+	}
+
+	public void nationalitySelection(String nationality) {
+		ElementUtility.selectCustomDropdownValue(dd_nationality, dd_option_list, nationality, "Nationality Dropdown");
+	}
+
+	public boolean editButtonIsEnabled() {
+		return ElementUtility.elementIsEnabled(editButton, "Edit Button");
+
+	}
+
+	public void clickOnEditButton() {
+		ElementUtility.clickOnElement(editButton, "Edit button");
+
+	}
+
+	public String getPersonalDetailsHeaderText() {
+		return ElementUtility.getTextFromElement(personalDetailsHeader);
+	}
+	
+	public void maritalStatusSelection(String maritalStatus) {
+		ElementUtility.selectCustomDropdownValue(dd_marital_status, marital_status_list, maritalStatus, "Marital Status Dropdown");
 	}
 }

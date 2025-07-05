@@ -9,15 +9,19 @@
 
 	<test thread-count="1" name="Functional Test">
 		<classes>
-			<!--			<class name="com.TestClass.LoginTest">
--->
+			<!--		<class name="com.TestClass.LoginTest">-->
 			<!--<class name="com.TestClass.DashboardTest">
 				<methods>
 					<include name="caseSensitivityTest"/>
 				</methods>
 
 			</class>-->
-			<class name="com.TestClass.EmployeeCreationTest" />
+			<class name="com.TestClass.EmployeeCreationTest">
+				<methods>
+					<include name="employeeCreation" />
+					<include name="editEmployeeDetails" />
+				</methods>
+			</class>
 		</classes>
 	</test> <!--
 	Test -->
