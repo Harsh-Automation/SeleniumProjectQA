@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import com.BaseClass.BaseClass;
+import com.aventstack.extentreports.MediaEntityBuilder;
 
 public class ElementUtility extends BaseClass {
 
@@ -18,24 +19,73 @@ public class ElementUtility extends BaseClass {
 
 		try {
 
-			Utilities.waitForElement(driver.findElement(locator));
+			WaitUtility.waitForElementVisiblity(driver.findElement(locator));
+
+			WaitUtility.waitForElementToBeClickable(locator);
+
+			JavaScriptUtility.highlightElement(driver.findElement(locator));
+
 			driver.findElement(locator).click();
+
 			log.info("Click action Successful on : " + elementName);
-			ReportManager.getTest().pass("Click action Successful on : " + elementName);
+			ReportManager.getTest().pass("Click action Successful on : " + elementName,
+					MediaEntityBuilder.createScreenCaptureFromPath(Utilities.takeScreenshot(elementName)).build());
+
 		} catch (Exception e) {
 			log.warn("Exception occured while click action on : " + elementName + " " + e.getMessage());
-
 			ReportManager.getTest()
 					.warning("Exception occured while click action on : " + elementName + " " + e.getMessage());
 
 			try {
+
 				driver.findElement(locator).click();
+
 				log.info("Retry click action Successful on : " + elementName);
-				ReportManager.getTest().pass("Retry click action Successful on : " + elementName);
+				ReportManager.getTest().pass("Retry click action Successful on : " + elementName,
+						MediaEntityBuilder.createScreenCaptureFromPath(Utilities.takeScreenshot(elementName)).build());
 
 			} catch (Exception e2) {
 				log.warn("Exception occured while retrying click action on : " + elementName + " " + e2.getMessage());
+				ReportManager.getTest().warning(
+						"Exception occured while retrying click action on : " + elementName + " " + e2.getMessage());
 
+			}
+
+		}
+
+	}
+
+	public static void clickOnDynamicElement(By locator, String elementName) {
+
+		try {
+
+			WaitUtility.waitForElementVisiblity(driver.findElement(locator));
+
+			WaitUtility.waitForElementToBeClickable(locator);
+
+			JavaScriptUtility.highlightElement(driver.findElement(locator));
+
+			driver.findElement(locator).click();
+
+			log.info("Click action Successful on : " + elementName);
+			ReportManager.getTest().pass("Click action Successful on : " + elementName,
+					MediaEntityBuilder.createScreenCaptureFromPath(Utilities.takeScreenshot(elementName)).build());
+
+		} catch (Exception e) {
+			log.warn("Exception occured while click action on : " + elementName + " " + e.getMessage());
+			ReportManager.getTest()
+					.warning("Exception occured while click action on : " + elementName + " " + e.getMessage());
+
+			try {
+
+				driver.findElement(locator).click();
+
+				log.info("Retry click action Successful on : " + elementName);
+				ReportManager.getTest().pass("Retry click action Successful on : " + elementName,
+						MediaEntityBuilder.createScreenCaptureFromPath(Utilities.takeScreenshot(elementName)).build());
+
+			} catch (Exception e2) {
+				log.warn("Exception occured while retrying click action on : " + elementName + " " + e2.getMessage());
 				ReportManager.getTest().warning(
 						"Exception occured while retrying click action on : " + elementName + " " + e2.getMessage());
 
@@ -48,10 +98,14 @@ public class ElementUtility extends BaseClass {
 	public static void inputIntoField(By locator, String elementName, String inputText) {
 
 		try {
-			Utilities.waitForElement(driver.findElement(locator));
+			WaitUtility.waitForVisibilityOfElementLocated(locator);
+			JavaScriptUtility.highlightElement(driver.findElement(locator));
+
 			driver.findElement(locator).sendKeys(inputText);
+
 			log.info("Input action Successful on : " + elementName);
-			ReportManager.getTest().pass("Input action Successful on : " + elementName);
+			ReportManager.getTest().pass("Input action Successful on : " + elementName,
+					MediaEntityBuilder.createScreenCaptureFromPath(Utilities.takeScreenshot(elementName)).build());
 		} catch (Exception e) {
 			log.info("Exception occured while input action on : " + elementName + " " + e.getMessage());
 
@@ -67,8 +121,11 @@ public class ElementUtility extends BaseClass {
 		String elementText = null;
 
 		try {
-			Utilities.waitForElement(driver.findElement(locator));
+			WaitUtility.waitForVisibilityOfElementLocated(locator);
+			JavaScriptUtility.highlightElement(driver.findElement(locator));
+
 			elementText = driver.findElement(locator).getText();
+
 			log.info("Text fetched successfully : " + elementText);
 			ReportManager.getTest().pass("Text fetched successfully : " + elementText);
 
@@ -88,8 +145,11 @@ public class ElementUtility extends BaseClass {
 		boolean elementDisplayed = false;
 
 		try {
-			Utilities.waitForElement(driver.findElement(locator));
+			WaitUtility.waitForElementVisiblity(driver.findElement(locator));
+			JavaScriptUtility.highlightElement(driver.findElement(locator));
+
 			elementDisplayed = driver.findElement(locator).isDisplayed();
+
 			log.info(elementName + " displayed successful");
 			ReportManager.getTest().pass(elementName + " displayed successful");
 		} catch (Exception e) {
@@ -109,8 +169,11 @@ public class ElementUtility extends BaseClass {
 		boolean elementEnabled = false;
 
 		try {
-			Utilities.waitForElement(driver.findElement(locator));
+			WaitUtility.waitForElementVisiblity(driver.findElement(locator));
+			JavaScriptUtility.highlightElement(driver.findElement(locator));
+
 			elementEnabled = driver.findElement(locator).isEnabled();
+
 			log.info(elementName + " is enabled");
 			ReportManager.getTest().pass(elementName + " is enabled");
 		} catch (Exception e) {
@@ -130,8 +193,11 @@ public class ElementUtility extends BaseClass {
 		boolean elementSelected = false;
 
 		try {
-			Utilities.waitForElement(driver.findElement(locator));
+			WaitUtility.waitForElementVisiblity(driver.findElement(locator));
+			JavaScriptUtility.highlightElement(driver.findElement(locator));
+
 			elementSelected = driver.findElement(locator).isSelected();
+
 			log.info(elementName + " is in selected state");
 			ReportManager.getTest().pass(elementName + " is in selected state");
 		} catch (Exception e) {
@@ -149,7 +215,7 @@ public class ElementUtility extends BaseClass {
 	public static void selectByName(By locator, String name) {
 
 		try {
-			Utilities.waitForElement(driver.findElement(locator));
+			WaitUtility.waitForElementVisiblity(driver.findElement(locator));
 			Select select = new Select(driver.findElement(locator));
 
 			select.selectByVisibleText(name);
@@ -184,6 +250,7 @@ public class ElementUtility extends BaseClass {
 
 					if (item.equalsIgnoreCase(valueName)) {
 						try {
+							JavaScriptUtility.highlightElement(optionList.get(i));
 							optionList.get(i).click();
 							log.info(item + " : option is selected");
 							ReportManager.getTest().pass(item + " : option is selected");
@@ -198,6 +265,7 @@ public class ElementUtility extends BaseClass {
 
 							ReportManager.getTest()
 									.warning("Exception occured while selecting : " + item + " " + e.getMessage());
+							JavaScriptUtility.highlightElement(optionList.get(i));
 
 							driver.findElements(optionsLocator).get(i).click();
 							log.info(item + " : option is selected after retry");
@@ -210,7 +278,7 @@ public class ElementUtility extends BaseClass {
 				}
 				if (!found) {
 					log.info(elementName + " not present in the option list");
-					ReportManager.getTest().pass(elementName + " not present in the option list");
+					ReportManager.getTest().fail(elementName + " not present in the option list");
 
 				}
 			}
@@ -220,6 +288,91 @@ public class ElementUtility extends BaseClass {
 			ReportManager.getTest().fail("Exception while selecting option from dropdown: " + e.getMessage());
 
 		}
+	}
+
+	public static void customFutureDatePicker(By dropdownLocator, By dateLocator, By monthLocator, By yearLocator,
+			By nextmonthYear, String date, String month, String year) {
+
+		WaitUtility.waitForElementToBeClickable(dropdownLocator);
+		driver.findElement(dropdownLocator).click();
+		try {
+
+			String currentMonth = driver.findElement(monthLocator).getText();
+			String currentYear = driver.findElement(yearLocator).getText();
+
+			while (!(currentMonth.equalsIgnoreCase(month) && currentYear.equalsIgnoreCase(year))) {
+				try {
+					WaitUtility.waitForElementVisiblity(driver.findElement(nextmonthYear));
+					JavaScriptUtility.highlightElement(driver.findElement(nextmonthYear));
+
+					driver.findElement(nextmonthYear).click();
+					currentMonth = driver.findElement(monthLocator).getText();
+					currentYear = driver.findElement(yearLocator).getText();
+
+				} catch (Exception e) {
+
+					log.warn("Exception occured while selecting month and year " + e.getMessage());
+					ReportManager.getTest()
+							.warning("Exception occured while selecting month and year " + e.getMessage());
+
+					WaitUtility.waitForElementVisiblity(driver.findElement(nextmonthYear));
+					JavaScriptUtility.highlightElement(driver.findElement(nextmonthYear));
+
+					driver.findElement(nextmonthYear).click();
+					currentMonth = driver.findElement(monthLocator).getText();
+					currentYear = driver.findElement(yearLocator).getText();
+
+				}
+			}
+
+			log.info("Expected Month and Year matched " + month + " " + year);
+			ReportManager.getTest().pass("Expected Month and Year matched " + month + " " + year);
+
+			List<WebElement> dateList = driver.findElements(dateLocator);
+			boolean selectedDate = false;
+
+			for (int i = 0; i < dateList.size(); i++) {
+
+				String currentDate = dateList.get(i).getText().trim();
+
+				if (currentDate.equalsIgnoreCase(date)) {
+					try {
+
+						JavaScriptUtility.highlightElement(dateList.get(i));
+
+						dateList.get(i).click();
+						log.info(currentDate + " : date is selected");
+						ReportManager.getTest().pass(currentDate + " : date is selected");
+						selectedDate = true;
+						break;
+					} catch (Exception e) {
+						log.warn("Exception occured while selecting date : " + currentDate + " " + e.getMessage());
+
+						ReportManager.getTest().warning(
+								"Exception occured while selecting date : " + currentDate + " " + e.getMessage());
+						JavaScriptUtility.highlightElement(dateList.get(i));
+
+						driver.findElements(dateLocator).get(i).click();
+						log.info(currentDate + " : date is selected after retry");
+						ReportManager.getTest().pass(currentDate + " : date is selected after retry");
+						selectedDate = true;
+						break;
+					}
+
+				}
+
+			}
+			if (!selectedDate) {
+				log.info(date + " not present in the option list");
+				ReportManager.getTest().fail(date + " not present in the option list");
+			}
+
+		} catch (Exception e) {
+
+			log.error("Exception while selecting date from datepicker: " + e.getMessage());
+			ReportManager.getTest().fail("Exception while selecting date from datepicker: " + e.getMessage());
+		}
+
 	}
 
 }

@@ -2,7 +2,6 @@ package com.Utilities;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -11,37 +10,38 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.BaseClass.BaseClass;
 
 public class Utilities extends BaseClass {
 
-	public static WebDriverWait wait;
 
 	public static JavascriptExecutor js;
 	static Logger log = LogManager.getLogger(Utilities.class);
 
-	public static void takeScreenshot(String scrName) throws IOException {
-		File dir = new File("Screenshots");
+	public static String takeScreenshot(String scrName) throws IOException {
+		File dir = new File(System.getProperty("user.dir")+"/Screenshots");
+		String dest = null;
 
 		try {
 			if (!dir.exists()) {
 				dir.mkdir();
+				log.info("New Directory created" + dir);
 			}
 
 			TakesScreenshot js = (TakesScreenshot) driver;
 			File src = js.getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(src, new File(dir + "/" + scrName + "_" + DataUtil.timestamp() + ".png"));
+			dest = dir + "/" + scrName + "_" + DataUtil.timestamp() + ".png";
+			FileUtils.copyFile(src, new File(dest));
 
-		} catch (WebDriverException e) {
-			System.out.println(e.getMessage());
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			log.info("Screenshot capture with filename " + scrName + ".png");
+
+		} catch (Exception e) {
+			log.error("Exception occured while capturing screenshot : " + e.getMessage());
+			ReportManager.getTest().fail("Exception occured while capturing screenshot : " + e.getMessage());
 		}
+		return dest;
 
 	}
 
@@ -62,12 +62,9 @@ public class Utilities extends BaseClass {
 			System.out.println(e.getMessage());
 		}
 
-	}
+	}	
 
-	public static void waitForElement(WebElement locator) {
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOfAllElements(locator));
-	}
+	
 
 	public static void assertMainMenuOptions(List<WebElement> actualItems, List<String> expectedItems) {
 		try {
@@ -114,7 +111,5 @@ public class Utilities extends BaseClass {
 			ReportManager.getTest().fail("Assertion Error : " + e.getMessage());
 		}
 	}
-
-	
 
 }

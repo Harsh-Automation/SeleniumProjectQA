@@ -38,6 +38,7 @@ public class JavaScriptUtility extends BaseClass {
 			ReportManager.getTest().fail("Failed to scroll to element: " + elementName + " - " + e.getMessage());
 		}
 	}
+
 	public static void clearInputField(WebElement elementLocator) {
 
 		try {
@@ -52,5 +53,34 @@ public class JavaScriptUtility extends BaseClass {
 		}
 
 	}
+
+	public static void highlightElement(WebElement element) {
+		try {
+
+			String originalStyle = element.getDomAttribute("style");
+
+			js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].style.border='1.7px solid red';", element);
+			Thread.sleep(400);
+
+			js.executeScript("arguments[0].setAttribute('style',arguments[1]);", element, originalStyle);
+
+		} catch (Exception e) {
+			log.error("Error while highlighting element: " + e.getMessage());
+			ReportManager.getTest().fail("Error while highlighting element: " + e.getMessage());
+		}
+	}
+
+//	public static void unHighlightElement(WebElement element) {
+//		try {
+//
+//			js = (JavascriptExecutor) driver;
+//			js.executeScript("arguments[0].style.border='1.5px solid white;", element);
+//
+//		} catch (Exception e) {
+//			log.error("Error while highlighting element: " + e.getMessage());
+//			ReportManager.getTest().fail("Error while highlighting element: " + e.getMessage());
+//		}
+//	}
 
 }

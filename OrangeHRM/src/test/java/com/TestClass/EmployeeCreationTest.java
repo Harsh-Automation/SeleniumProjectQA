@@ -30,7 +30,7 @@ public class EmployeeCreationTest extends BaseClass {
 		Thread.sleep(1000);
 
 		lp.click_on_login();
-
+		lp.dashboardIsDisplayed();
 		ec = new EmployeeCreationPage(driver);
 		ec.cLickOnPIMOption();
 
@@ -65,6 +65,8 @@ public class EmployeeCreationTest extends BaseClass {
 		dp = new DashboardPage(driver);
 		dp.clickOnProfileIconDD();
 		dp.cLickOnLogoutBtn();
+		sa.assertTrue(lp.lblLoginIsDisplayed(), "Logout not successful");
+
 
 		sa.assertAll();
 	}
@@ -79,6 +81,7 @@ public class EmployeeCreationTest extends BaseClass {
 		lp.enter_username_password("Admin", "admin123");
 
 		lp.click_on_login();
+		lp.dashboardIsDisplayed();
 
 		ec = new EmployeeCreationPage(driver);
 		ec.cLickOnPIMOption();
@@ -115,6 +118,7 @@ public class EmployeeCreationTest extends BaseClass {
 		lp.enter_username_password("Admin", "admin123");
 
 		lp.click_on_login();
+		lp.dashboardIsDisplayed();
 
 		ec = new EmployeeCreationPage(driver);
 		ec.cLickOnPIMOption();
@@ -149,33 +153,42 @@ public class EmployeeCreationTest extends BaseClass {
 		lp.enter_username_password("Admin", "admin123");
 
 		lp.click_on_login();
+		lp.dashboardIsDisplayed();
 
 		ec = new EmployeeCreationPage(driver);
 		ec.cLickOnPIMOption();
 
 		ec.searchEmployeeName(DataUtil.firstName);
+		ec.selectDynamicNameFromList(DataUtil.firstName);
+		Utilities.takeScreenshot("employee_search_result_record");
+
 
 		ec.clickOnSubmitBtn();
 		JavaScriptUtility.scrollToBottom();
 		Utilities.takeScreenshot("employee_search_result_for_edit");
-		
-		sa.assertTrue(ec.editButtonIsEnabled(),"Edit button is not enabled");
+
+		sa.assertTrue(ec.editButtonIsEnabled(), "Edit button is not enabled");
 		ec.clickOnEditButton();
-		
+
 		String perosnalheadertitle = ec.getPersonalDetailsHeaderText();
 		sa.assertEquals(perosnalheadertitle, "Personal Details");
-		
+
 		ec.nationalitySelection("Indian");
-		
+
 		Utilities.takeScreenshot("Nationality_selected");
-		
+
 		ec.maritalStatusSelection("Single");
 		Utilities.takeScreenshot("Marital_status_selected");
+
+		ec.setDateOfBirthFromDatePicker("15", "May", "2026");
+
+		Utilities.takeScreenshot("Date_of_birth_selected");
 
 		dp = new DashboardPage(driver);
 		dp.clickOnProfileIconDD();
 		dp.cLickOnLogoutBtn();
-		
+		sa.assertTrue(lp.lblLoginIsDisplayed(), "Logout not successful");
+
 		Utilities.takeScreenshot("Logout_out_successful");
 
 		sa.assertAll();

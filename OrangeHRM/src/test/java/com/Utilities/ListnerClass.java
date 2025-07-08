@@ -6,8 +6,6 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import com.BaseClass.BaseClass;
-
 public class ListnerClass implements ITestListener {
 
 	Logger log = LogManager.getLogger(ListnerClass.class);
@@ -15,9 +13,9 @@ public class ListnerClass implements ITestListener {
 	@Override
 	public void onTestStart(ITestResult result) {
 		ReportManager.createTest("Test for " + result.getMethod().getMethodName());
-		ReportManager.getTest().info("Browser launched Successfully");
-		ReportManager.getTest().info("Navigated to " + BaseClass.url);
+
 		System.out.println("***** Test started for " + result.getName() + "*****");
+		BufferLogManager.flushToExtentReport();
 
 	}
 

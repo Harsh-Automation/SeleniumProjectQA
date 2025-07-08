@@ -9,11 +9,12 @@
       <class name="com.TestClass.EmployeeCreationTest">
         <methods>
           <include name="setupReport"/>
-          <include name="invalidSearch"/>
           <include name="tearDown"/>
           <include name="deleteDirectory"/>
           <include name="setup"/>
           <include name="flushReport"/>
+          <include name="employeeCreation"/>
+          <include name="editEmployeeDetails"/>
         </methods>
       </class> <!-- com.TestClass.EmployeeCreationTest -->
     </classes>

@@ -12,6 +12,7 @@
           <include name="setup"/>
           <include name="flushReport"/>
           <include name="employeeCreation"/>
+          <include name="editEmployeeDetails"/>
           <include name="employeeSearch"/>
         </methods>
       </class> <!-- com.TestClass.EmployeeCreationTest -->

@@ -52,9 +52,17 @@ public class EmployeeCreationPage {
 			"//div[@class='oxd-table-row oxd-table-row--with-border oxd-table-row--clickable']/div[9]/div/button[1]");
 
 	By personalDetailsHeader = By.xpath("//div[@class='orangehrm-edit-employee-content']/div[1]/h6");
-	
+
 	By dd_marital_status = By.xpath("//label[contains(text(),'Marital')]/../../div[2]/div");
 	By marital_status_list = By.xpath("//label[contains(text(),'Marital')]/../../div[2]/div/div[2]/div");
+
+	By datePicker_date_of_birth = By.xpath("//label[contains(text(),'Date of Birth')]/../../div[2]/div/div");
+
+	By datePicker_next_month_year = By.xpath("//div[@class='oxd-calendar-wrapper']/div[1]/button[2]");
+	By datePicker_month = By.xpath("//div[@class='oxd-calendar-wrapper']/div[1]/ul/li[1]/div/p");
+	By datePicker_year = By.xpath("//div[@class='oxd-calendar-wrapper']/div[1]/ul/li[2]/div/p");
+
+	By datePicker_date = By.xpath("//div[@class='oxd-calendar-wrapper']/div[3]/div/div");
 
 	public EmployeeCreationPage(WebDriver driver) {
 		this.driver = driver;
@@ -138,8 +146,17 @@ public class EmployeeCreationPage {
 	public void searchEmployeeName(String empName) {
 
 		ElementUtility.inputIntoField(search_field_employeename, "Employee name", empName);
-		ElementUtility.clickOnElement(select_first_search_result, "First Employee name");
 
+	}
+
+	public By selectDynamicName(String dynamicName) {
+		return By.xpath("//div[@class='oxd-autocomplete-dropdown --positon-bottom']//span[contains(text(),'"
+				+ dynamicName + "')]");
+
+	}
+
+	public void selectDynamicNameFromList(String name) {
+		ElementUtility.clickOnElement(selectDynamicName(name), " " + name + " record");
 	}
 
 	public boolean submitBtnIsEnabled() {
@@ -185,8 +202,15 @@ public class EmployeeCreationPage {
 	public String getPersonalDetailsHeaderText() {
 		return ElementUtility.getTextFromElement(personalDetailsHeader);
 	}
-	
+
 	public void maritalStatusSelection(String maritalStatus) {
-		ElementUtility.selectCustomDropdownValue(dd_marital_status, marital_status_list, maritalStatus, "Marital Status Dropdown");
+		ElementUtility.selectCustomDropdownValue(dd_marital_status, marital_status_list, maritalStatus,
+				"Marital Status Dropdown");
+	}
+
+	public void setDateOfBirthFromDatePicker(String date, String month, String year) {
+
+		ElementUtility.customFutureDatePicker(datePicker_date_of_birth, datePicker_date, datePicker_month,
+				datePicker_year, datePicker_next_month_year, date, month, year);
 	}
 }
