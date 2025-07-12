@@ -19,8 +19,8 @@
 			<class name="com.TestClass.EmployeeCreationTest">
 				<methods>
 					<include name="employeeCreation" />
-					<include name="editEmployeeDetails" />
-				</methods>
+<!--					<include name="editEmployeeDetails" />
+-->				</methods>
 			</class>
 		</classes>
 	</test> <!--

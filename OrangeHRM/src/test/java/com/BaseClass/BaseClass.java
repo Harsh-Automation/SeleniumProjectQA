@@ -9,10 +9,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 
 import com.Utilities.BufferLogManager;
 import com.Utilities.ConstantUtility;
@@ -28,7 +28,7 @@ public class BaseClass {
 
 	static Logger log = LogManager.getLogger(BaseClass.class);
 
-	@BeforeTest
+	@BeforeMethod
 	public void setup() {
 		try {
 
@@ -71,7 +71,7 @@ public class BaseClass {
 
 	}
 
-	@AfterTest
+	@AfterMethod
 
 	public void tearDown() {
 		if (driver != null) {

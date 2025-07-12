@@ -14,7 +14,6 @@
           <include name="setup"/>
           <include name="flushReport"/>
           <include name="employeeCreation"/>
-          <include name="editEmployeeDetails"/>
         </methods>
       </class> <!-- com.TestClass.EmployeeCreationTest -->
     </classes>
